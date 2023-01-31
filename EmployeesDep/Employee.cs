@@ -42,12 +42,13 @@ namespace EmployeesDep
             {
                 return $"{FirstName}-{LastName}-{Gender}-{ID}";
             }
-            //public static Employee Parse(string input) //firstName --- LastName;
-            //{
-            //    string firstName = input.Substring(0, input.IndexOf('-')).Trim();
-            //    string lastName = input.Substring(0, input.LastIndexOf('-') + 1).Trim();
+        public static Employee Parse(string input) //firstName --- dep , LastName;
+        {
+            string firstName = input.Substring(0, input.IndexOf('-')).Trim();
+            string lastName = input.Substring(0, input.LastIndexOf('-') + 1).Trim();
+            
 
-            //    return new Employee(firstName, lastName);
-            //}
+            return new Employee(firstName, lastName);
         }
+    }
 }

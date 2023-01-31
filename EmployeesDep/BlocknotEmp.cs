@@ -9,8 +9,7 @@ namespace EmployeesDep
 {
     public class BlocknotEmp
     {
-        public const string FileName = "BlocknotEmp.txt";
-
+        public const string FileName ="BlocknotEmp.txt";
         private List<Employee> employees;
 
         public BlocknotEmp()
@@ -75,41 +74,36 @@ namespace EmployeesDep
                 Console.WriteLine(emp);
             }
         }
-        //public bool SaveToFile()
-        //{
-        //    try
-        //    {
-        //        using StreamWriter stream = new StreamWriter(FileName);
+        public bool SaveToFile()
+        {
+            try
+            {
+                using StreamWriter stream = new StreamWriter(FileName);
 
-        //        foreach (Employee empl in this.employees)
-        //        {
-        //            stream.WriteLine(empl);
-        //        }
-
-        //        return true;
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //public void LoadFromFIle()
-        //{
-        //    this.employees.Clear();
-
-
-        //    using(StreamReader streamReader = new StreamReader(FileName))
-        //    {
-        //        string line;
-        //        while(( line = streamReader.ReadLine()) != null)
-        //        {
-        //            Employee employee = Employee.Parse(line);
-        //            this.employees.Add(employee);
-        //        }
-
-        //    }
-        //}
+                foreach (Employee empl in this.employees)
+                {
+                    stream.WriteLine(empl);
+                }
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+        public void LoadFromFile()
+        {
+            this.employees.Clear();
+            using (StreamReader streamReader = new StreamReader(FileName))
+            {
+                string line;
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    Employee employee = Employee.Parse(line);
+                    this.employees.Add(employee);
+                }
+            }
+        }
         public static void ShowAll(Employee employee, List<Employee> employees)
         {
             foreach (Employee emp in employees)
