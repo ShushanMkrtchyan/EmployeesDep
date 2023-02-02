@@ -24,12 +24,6 @@ namespace EmployeesDep
         {
             BlocknotDep blockdep = new BlocknotDep();
 
-            //Console.Write("Department ");
-
-            //string deps = Console.ReadLine();
-            //Department dep1 = new Department(deps);
-            //SaveToFile(dep1);
-
 
             BlocknotEmp blocknot = new BlocknotEmp();
             do
