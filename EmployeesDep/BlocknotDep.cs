@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Collections;
 
 namespace EmployeesDep
 {
-    class BlocknotDep
+    class BlocknotDep: IEnumerable<Department>
     {
         public const string FileName1 = "BlocknotDep.txt";
 
@@ -21,27 +22,29 @@ namespace EmployeesDep
         {
             this.deps.Add(dep);
         }
+        
 
-        public bool SaveToFile()
+        public bool SaveToFile2()
         {
             try
             {
-                StreamWriter streamWriter = new StreamWriter(FileName1);
+               using 
+                    StreamWriter streamWriter = new StreamWriter(FileName1);
                 foreach (Department dep in this.deps)
                 {
-                    streamWriter.WriteLine(dep);
+                    streamWriter.WriteLine(dep.Name);
                 }
                 return true;
 
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
             }
 
         }
 
-        public void LoadFromFile()
+        public void LoadFromFile2()
         {
             this.deps.Clear();
 
@@ -54,6 +57,16 @@ namespace EmployeesDep
                 }
 
             }
+        }
+
+        public IEnumerator<Department> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }

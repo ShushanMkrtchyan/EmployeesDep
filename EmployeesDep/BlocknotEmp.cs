@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EmployeesDep
 {
-    public class BlocknotEmp
+    public class BlocknotEmp:IEnumerable<Employee>
     {
         public const string FileName ="BlocknotEmp.txt";
         private List<Employee> employees;
@@ -38,22 +40,30 @@ namespace EmployeesDep
             {
                 if (employee.ID == id)
                 {
-                    return true;  //unikal chi, as krknvuma id
+                    return true;  
                 }
             }
-            return false;  //unikala, vorochetev chka krknovx id
+            return false;  
 
-        }
-        public IEnumerable<Employee> Find(string firstName)
+        } 
+        public IEnumerator<Employee> GetEnumerator()
         {
-            foreach (Employee employee in this.employees)
-            {
-                if (employee.FirstName.ToLower() == firstName.ToLower())
-                {
-                    yield return employee;
-                }
-            }
+            throw new NotImplementedException();
         }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+        
+       
+        public IEnumerable <Employee> Find(Predicate<Employee> predicate)
+        {       
+            return this.employees.GetByCondition(predicate);
+        }
+      
+
+
         public Employee Remove(int employeeid)
         {
             foreach (Employee emp in this.employees)
@@ -74,7 +84,7 @@ namespace EmployeesDep
                 Console.WriteLine(emp);
             }
         }
-        public bool SaveToFile()
+        public bool SaveToFile1()
         {
             try
             {
@@ -91,7 +101,7 @@ namespace EmployeesDep
                 return false;
             }
         }
-        public void LoadFromFile()
+        public void LoadFromFile1()
         {
             this.employees.Clear();
             using (StreamReader streamReader = new StreamReader(FileName))
@@ -112,5 +122,6 @@ namespace EmployeesDep
             }
         }
 
+        
     }
 }

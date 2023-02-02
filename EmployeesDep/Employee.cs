@@ -15,15 +15,17 @@ namespace EmployeesDep
 
             public string Gender { get; set; }
 
-        public Employee(string firstName)
+            public Employee(string firstName)
         {
             FirstName = firstName;
         }
             public Employee(int id)
-            {
-                ID = id;
-            }
-            public Employee(string firstName, string lastName)
+       {
+           ID = id;
+       }
+             public Employee() {}
+           
+             public Employee(string firstName, string lastName)
             {
                 FirstName = firstName;
                 LastName = lastName;
@@ -32,23 +34,32 @@ namespace EmployeesDep
             {
                 Gender = gender;
             }
-            public Employee(string firstName, string lastName, string gender, int id) : this(firstName, lastName)
-            {
-                Gender = gender;
-                ID = id;
-            }
-
-            public override string ToString()
+       
+       
+        public override string ToString()
             {
                 return $"{FirstName}-{LastName}-{Gender}-{ID}";
             }
-        public static Employee Parse(string input) //firstName --- dep , LastName;
+        public static Employee Parse(string input) //fistname-lastname-gender-id;
         {
-            string firstName = input.Substring(0, input.IndexOf('-')).Trim();
-            string lastName = input.Substring(0, input.LastIndexOf('-') + 1).Trim();
-            
+            string[] array = input.Split('-');
+            if (array.Length != 4)
+            {
+                throw new ArgumentException("Invalid input format"); 
+            }
 
-            return new Employee(firstName, lastName);
+            string firstname = array[0].Trim();
+            string lastname = array[1].Trim();
+            string gender = array[2].Trim();
+            int id = Int32.Parse(array[3].Trim());
+
+            return new Employee()
+            {
+                ID = id,
+                FirstName = firstname,
+                LastName = lastname,
+                Gender = gender
+            };
         }
     }
 }

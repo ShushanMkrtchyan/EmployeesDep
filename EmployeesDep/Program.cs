@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.Design;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 
 namespace EmployeesDep
 {
-    static class ShowMenu  //Helper
+    static class ShowMenu  
     {
         public static void Show()
         {
@@ -20,9 +22,16 @@ namespace EmployeesDep
     {
         static void Main(string[] args)
         {
+            BlocknotDep blockdep = new BlocknotDep();
+
+            //Console.Write("Department ");
+
+            //string deps = Console.ReadLine();
+            //Department dep1 = new Department(deps);
+            //SaveToFile(dep1);
+
 
             BlocknotEmp blocknot = new BlocknotEmp();
-           
             do
             {
                 ShowMenu.Show();
@@ -55,58 +64,68 @@ namespace EmployeesDep
                         Console.Write("Department = ");
                         string department = Console.ReadLine();
                         Department dp = new Department(department);
-
-                                                   
-                        Employee employee = new Employee(firstName, lastName, gender );
+                        blockdep.Add(dp);
+                                                                 
+                        Employee employee = new Employee(firstName, lastName, gender);
                         int newid = blocknot.Add(employee);
-
+                       
                         Console.WriteLine($"Employee is added with this ID:{newid}");
 
-                        blocknot.SaveToFile();
-                        
+                        blocknot.SaveToFile1();
+                        blockdep.SaveToFile2();
                         break;
 
                     case MenuNotes.FindEmployees:
-                        blocknot.LoadFromFile();
-                        Console.Write("Write name to search for: ");
+
+                        Console.Write("Write Item to search for: ");
+
+
                         string nameToFind = Console.ReadLine();
-                        
-                        IEnumerable<Employee> emp = blocknot.Find(nameToFind);
 
-                        foreach (Employee one in emp)
-
-                            if (one != null)
-                            {
-                                Console.WriteLine(one);
-                            }
-                            else
-
-                            {
-                                Console.WriteLine($"{emp} not found");
-                            }
-
+                        List<Employee> empls = blocknot.Find(e => e.FirstName == nameToFind).ToList();
+                        foreach (Employee item in empls)
+                        {
+                            Console.WriteLine($"{item.FirstName}-{item.LastName}-{item.Gender}-{item.ID}");
+                        }
+                        blocknot.LoadFromFile1();
                         break;
+
 
                     case MenuNotes.RemoveEmployee:
                         Console.Write("Please enter ID: ");
-                        int id = int.Parse(Console.ReadLine());
-                        var removeid = blocknot.Remove(id);
-                        Console.WriteLine($"Employee with {id} id is removed");
-                        blocknot.SaveToFile();
-
-                                                         
+                        int id1 = int.Parse(Console.ReadLine());
+                        var removeid = blocknot.Remove(id1);
+                        Console.WriteLine($"Employee with {id1} id is removed");
+                        blocknot.SaveToFile1();
                         break;
+
                     case MenuNotes.ShowAllEmployees:
                         blocknot.ShowAll();
                         break;
+
                     default:
                         break;
-
-
                 }
 
             } while (true);
+
+       
+            
         }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
     
 }
